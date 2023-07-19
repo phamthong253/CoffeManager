@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="./icons/themify-icons/themify-icons.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <header>
+		<nav>
+			<h1>Coffee DeV</h1>
+			<ul>
+				<a href="/homepage.html"><li><i class="ti-home"></i>Home</li></a>
+				<a href="/index.html"><li><i class="ti-user"></i>User</li></a>
+				<a href="/area.html"><li><i class="ti-view-grid"></i>Area</li></a>
+				<a href="/dashboard.html"><li><i class="ti-bar-chart"></i>Satistic</li></a>
+                <a href="/index.html"><li style="cursor:pointer;"><img src="/img/289828922_3077792525816034_1336847582660171802_n.jpg">Admin</li></a>
+			</ul>
+		</nav>
+	</header>
+    <div class="dashboard">
+        <div class="order" style="background:#65DDC1;">
+            <div>
+                <h3>Total:</h3>
+                <span>12.145.000đ</span>
+            </div>
+            <div><i class="ti-package"></i></div>
+        </div>
+        <div class="order" style="background:#F47B92;">
+            <div>
+                <h3>Order:</h3>
+                <span>225</span>
+            </div>
+            <div><i class="ti-shopping-cart-full"></i></div>
+        </div>
+        <div class="order" style="background:#FFC570;">
+            <div>
+                <h3>Best Seller:</h3>
+            </div>
+            <div><img src="/img/cafedenda.jpg"></div>
+        </div>
+        <div class="order" style="background:#66B0F7;">
+            <div>
+                <h3>Worsth Seller:</h3>
+            </div>
+            <div><img src="/img/sodaquyt.jpg"></div>
+        </div>
+    </div>
+    <div class="chartJS">
+        <canvas id="myChart"></canvas>
+    </div>
+<style>
+    .dashboard{
+        display: flex;
+        flex-direction: column column;
+    }
+    .order{
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column column;
+        gap:40%;
+        width:330px;
+        height: 80px;
+        justify-content: center;
+        align-items: center;
+        margin: 10px auto;
+        box-shadow: 0px 25px 60px #bac7e2;
+        color:#fff;
+        transition: 0.3s ease-in;
+    }
+    .order:hover{
+        transform: scale(1.1);
+    }
+    div i{
+        font-size: 30px;
+    }
+    div img{
+        width:55px;
+        border-radius: 10px;
+    }
+     .chartJS{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        height: 80vh;
+    } 
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function renderChart(data, labels) {
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Doanh thu tuần này',
+                data: data,
+                fill:true,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            }]
+        },
+        options: { 
+            plugins: {
+            title: {
+                display: true,
+                text: 'Bảng thống kê doanh doanh thu trong trong tuần',
+                font:{
+                    size:24
+                },
+                padding: {
+                    top: 10,
+                    bottom: 30
+                }
+            }
+        },           
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function(value, index, values) {
+                            return float2vnd(value);
+                        }
+                    }
+                }]                
+            }
+        },
+    });
+}
+
+    data = [1400000, 1600000, 1200000, 2200000, 2500000, 2300000, 2500000];
+    labels =  ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ Nhật"];
+    renderChart(data, labels);
+
+function float2vnd(value){
+  return value.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+}
+
+  </script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
